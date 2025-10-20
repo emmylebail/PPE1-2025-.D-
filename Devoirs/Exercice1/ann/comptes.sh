@@ -1,10 +1,7 @@
 #!/usr/bin/bash
 
-echo "Nombre de Lieux en 2016 :"
-grep "Location" 2016/*/*.ann | wc -l
-
-echo "Nombre de Lieux en 2017 :"
-grep "Location" 2017/*/*.ann | wc -l
-
-echo "Nombre de Lieux en 2018 :"
-grep "Location" 2018/*/*.ann | wc -l
+for ANNEE in 2016 2017 2018 
+do 
+    echo "Nombre de Lieux en $ANNEE :"
+    grep "Location" $ANNEE/*/*.ann | wc -l
+done
