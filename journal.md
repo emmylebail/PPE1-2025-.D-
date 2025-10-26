@@ -167,4 +167,26 @@ Numéro ligne	lien	Code http	encodage	Nombre de mot
 10	https://fr.wikipedia.org/wiki/Robotique	429	utf-8
 	   13009
 
-Le nombre de mot est revenu à la normal et les erreurs ont été récupérées. Il me manque plus que l'erreur du 6e site à contourner. L'erreur vient de la licence du site qui était jusqu'au 1er octobre. J'avais essayé de la contourné avec la commande lynx -stdin mais ça me donnait de mauvais chiffres pour les autres site. Je ne pense pas pouvoir faire mieux pour la date de rendu le 27 octobre.  
+Le nombre de mot est revenu à la normal et les erreurs ont été récupérées. Il me manque plus que l'erreur du 6e site à contourner. L'erreur vient de la licence du site qui était jusqu'au 1er octobre. J'avais essayé de la contourné avec la commande lynx -stdin mais ça me donnait de mauvais chiffres pour les autres site. Je ne pense pas pouvoir faire mieux pour la date de rendu le 27 octobre. 
+
+Résultat final avant le 27 octobre :
+Numéro ligne	lien	Code http	encodage	Nombre de mot
+1	https://fr.wikipedia.org/wiki/Robot	200	UTF-8
+	    5668
+2	https://fr.wikipedia.org/wiki/Robot_de_cuisine	200	UTF-8
+	    1157
+3	https://fr.wikipedia.org/wiki/Robot_d%27indexation	200	UTF-8
+	    1756
+4	https://fr.wikipedia.org/wiki/Bot_informatique	200	UTF-8
+	    2577
+5	https://fr.wikipedia.org/wiki/Atlas_(robot)	429	utf-8
+	    1163
+6	https://roboty.magistry.fr	Erreur	Inconnu	       0
+7	https://fr.wikipedia.org/wiki/Robot_(Leonard_de_Vinci)	404	utf-8
+	     440
+8	https://fr.wiktionary.org/wiki/robot	429	utf-8
+	    4785
+9	https://fr.wikipedia.org/wiki/Protocole_d%27exclusion_des_robots	429	utf-8
+	    1052
+10	https://fr.wikipedia.org/wiki/Robotique	200	utf-8
+	   13009

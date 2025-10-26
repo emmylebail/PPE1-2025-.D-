@@ -32,7 +32,7 @@ do
 
     encodage=$(curl -s -I "${line}" | grep -i "content-type" | grep -o -E "charset=[^; ]*" | cut -d= -f2) 
     [[ -z "${encodage}" ]] && encodage="Inconnu"
-    nombre_mot=$(curl -s -L "${line}" | lynx -dump -nolist "${line}" | wc -w)
+    nombre_mot=$(curl -s -L "${line}" | lynx -stdin -dump -nolist "${line}" | wc -w)
 
     echo -e "${Nombre_ligne}\t${line}\t${code_http}\t${encodage}\t${nombre_mot}" >> "$fichier_sortie"
     ((Nombre_ligne++))
