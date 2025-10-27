@@ -180,3 +180,20 @@ Résultat 4 :
 Je pense que les différences de résultat sont du aux codes d'erreur http, j'ai lancé plusieurs fois d'affilé le scripts bash et je n'ai pas toujours le même résultat.
 
 -> Erreur 429 : 429 Too Many Requests. Cette erreur survient lorsque le serveur est submergé par un grand nombre de requêtes en un court laps de temps, ce qui peut être dû à une utilisation intensive du site ou à des abus.
+
+Résultat 5 :
+
+| Numéro ligne | Lien | Code HTTP | Encodage | Nombre de mot |
+|--------------|------|-----------|----------|---------------|
+| 1 | https://fr.wikipedia.org/wiki/Robot | 200 | UTF-8 | 5668 |
+| 2 | https://fr.wikipedia.org/wiki/Robot_de_cuisine | 200 | UTF-8 | 1157 |
+| 3 | https://fr.wikipedia.org/wiki/Robot_d%27indexation | 200 | UTF-8 | 1756 |
+| 4 | https://fr.wikipedia.org/wiki/Bot_informatique | 200 | UTF-8 | 2577 |
+| 5 | https://fr.wikipedia.org/wiki/Atlas_(robot) | 429 | UTF-8 | 1163 |
+| 6 | https://roboty.magistry.fr | 200 | INCONNU | 0 |
+| 7 | https://fr.wikipedia.org/wiki/Robot_(Leonard_de_Vinci) | 404 | UTF-8 | 440 |
+| 8 | https://fr.wiktionary.org/wiki/robot | 429 | UTF-8 | 4785 |
+| 9 | https://fr.wikipedia.org/wiki/Protocole_d%27exclusion_des_robots | 200 | UTF-8 | 1052 |
+| 10 | https://fr.wikipedia.org/wiki/Robotique | 429 | UTF-8 | 13009 |
+
+Pour régler un problème, j'ai enlevé l'option `-stdin` j'ai également ajouté le temps de réponse `--max-time` qui permet de ne pas trop surchauffé le site.
