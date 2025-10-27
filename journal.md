@@ -62,6 +62,7 @@ done < "urls/fr.txt"
 • Bien séparer les valeurs par des tabulations
 
 Mon terminal me rend ce résultat :
+
 1	https://fr.wikipedia.org/wiki/Robot
 2	https://fr.wikipedia.org/wiki/Robot_de_cuisine
 3	fr.wikipedia.org/wiki/Robot_d%27indexation
@@ -83,24 +84,27 @@ Je viens de voir que ce n'est que l'exercice 1. Je vais faire une pause ça sera
 > 3. le nombre de mots dans la page
 
 Résultat 1 :
-Numéro ligne	lien	Code http	encodage	Nombre de mot
-1	https://fr.wikipedia.org/wiki/Robot			    5668
-2	https://fr.wikipedia.org/wiki/Robot_de_cuisine			    1157
-3	fr.wikipedia.org/wiki/Robot_d%27indexation			    1756
-4	https://fr.wikipedia.org/wiki/Bot_informatique			    2577
-5	https://fr.wikipedia.org/wiki/Atlas_(robot)			    1163
-6	https://roboty.magistry.fr			       0
-7	https://fr.wikipedia.org/wiki/Robot_(Leonard_de_Vinci)			     440
-8	https://fr.wiktionary.org/wiki/robot			    4785
-9	https://fr.wikipedia.org/wiki/Protocole_d%27exclusion_des_robots			    1052
-10	https://fr.wikipedia.org/wiki/Robotique			   13009
+
+| Numéro ligne | Lien | Code HTTP | Encodage | Nombre de mots |
+|:-------------:|:------|:-----------:|:-----------:|---------------:|
+| 1 | https://fr.wikipedia.org/wiki/Robot |     |   | 5668 |
+| 2 | https://fr.wikipedia.org/wiki/Robot_de_cuisine |  |  | 1157 |
+| 3 | fr.wikipedia.org/wiki/Robot_d%27indexation |	|   | 1756 |
+| 4 | https://fr.wikipedia.org/wiki/Bot_informatique |  |   | 2577 |
+| 5 | https://fr.wikipedia.org/wiki/Atlas_(robot) |   |     | 1163 |
+| 6 | https://roboty.magistry.fr |  |   | 0 |
+| 7 | https://fr.wikipedia.org/wiki/Robot_(Leonard_de_Vinci) |  |  | 440 |
+| 8 | https://fr.wiktionary.org/wiki/robot |    |   | 4785 |
+| 9 | https://fr.wikipedia.org/wiki/Protocole_d%27exclusion_des_robots |    |   | 1052 |
+| 10 | https://fr.wikipedia.org/wiki/Robotique |  |  | 13009 |
 
 
 J'ai à présent le fichier tableau-fr.tsv qui a été crée. Maintenant le problème est l'encodage et le code http ne sont sortis.
 Lorsque j'ai lancé le programme j'ai aussi eu un problème d'accès pour le 6e lien, c'est pour ça que j'ai un résultat de 0.
 
 > curl: (60) SSL certificate problem: certificate has expired
-<!-- More details here: https://curl.se/docs/sslcerts.html
+
+""" More details here: https://curl.se/docs/sslcerts.html
 
 curl failed to verify the legitimacy of the server and therefore could not
 establish a secure connection to it. To learn more about this situation and
@@ -119,7 +123,7 @@ SSL callback:ok, preverify_ok=1, ssl_okay=0
 SSL callback:certificate has expired, preverify_ok=0, ssl_okay=0
 Alert!: Unable to make secure connection to remote host.
 
-lynx: Can't access startfile https://roboty.magistry.fr/ -->
+lynx: Can't access startfile https://roboty.magistry.fr/ """
 
 Résultat 2 :
 
@@ -136,7 +140,7 @@ Résultat 2 :
 | 9 | https://fr.wikipedia.org/wiki/Protocole_d%27exclusion_des_robots | 200 | utf-8 | 75 |
 | 10 | https://fr.wikipedia.org/wiki/Robotique | 200 | utf-8 | 75 |
 
-La question est pourquoi il y a autant de différence dans le nombre de mot dans ce résultat que dans le résultat précédent. 
+La question est pourquoi il y a autant de différence entre le nombre de mot de ce résultat que dans le résultat précédent. 
 Les codes d'erreur ne sont toujours pas bien enregistré...
 
 Résultat 3 :
@@ -154,20 +158,25 @@ Résultat 3 :
 | 9 | https://fr.wikipedia.org/wiki/Protocole_d%27exclusion_des_robots | 429 | utf-8 | 1052 |
 | 10 | https://fr.wikipedia.org/wiki/Robotique | 429 | utf-8 | 13009 |
 
-Le nombre de mot est revenu à la normal et les erreurs ont été récupérées. Il me manque plus que l'erreur du 6e site à contourner. L'erreur vient de la licence du site qui était jusqu'au 1er octobre. J'avais essayé de la contourné avec la commande lynx -stdin mais ça me donnait de mauvais chiffres pour les autres site. Je ne pense pas pouvoir faire mieux pour la date de rendu le 27 octobre. 
+Le nombre de mot est revenu à la normal et les erreurs ont été récupérées. Il me manque plus que l'erreur du 6e site à contourner. L'erreur vient de la licence du site qui était jusqu'au 1er octobre. J'avais essayé de la contourné avec la commande lynx -stdin mais ça me donnait de mauvais chiffres pour les autres site.
 
-Résultat final avant le 27 octobre :
+J'ai essayé de contourné la restriction ssl avec une option `--insercure`, ça marche plutôt pas mal, le seul problème c'est que ça a déréglé le calcul du nombre des mots.
 
-| Numéro ligne | Lien | Code HTTP | Encodage | Nombre de mots |
-|:-------------:|:------|:-----------:|:-----------:|---------------:|
-| 1 | https://fr.wikipedia.org/wiki/Robot | 200 | UTF-8 | 5668 |
-| 2 | https://fr.wikipedia.org/wiki/Robot_de_cuisine | 200 | UTF-8 | 1157 |
-| 3 | https://fr.wikipedia.org/wiki/Robot_d%27indexation | 200 | UTF-8 | 1756 |
-| 4 | https://fr.wikipedia.org/wiki/Bot_informatique | 200 | UTF-8 | 2577 |
-| 5 | https://fr.wikipedia.org/wiki/Atlas_(robot) | 429 | utf-8 | 1163 |
-| 6 | https://roboty.magistry.fr | Erreur | Inconnu | 0 |
-| 7 | https://fr.wikipedia.org/wiki/Robot_(Leonard_de_Vinci) | 404 | utf-8 | 440 |
-| 8 | https://fr.wiktionary.org/wiki/robot | 429 | utf-8 | 4785 |
-| 9 | https://fr.wikipedia.org/wiki/Protocole_d%27exclusion_des_robots | 429 | utf-8 | 1052 |
-| 10 | https://fr.wikipedia.org/wiki/Robotique | 200 | utf-8 | 13009 |
+Résultat 4 :
 
+| Numéro ligne | Lien                                                      | Code HTTP | Encodage | Nombre de mots |
+|-------------:|----------------------------------------------------------|-----------|----------|----------------|
+| 1            | https://fr.wikipedia.org/wiki/Robot                     | 200       | UTF-8    | 5668           |
+| 2            | https://fr.wikipedia.org/wiki/Robot_de_cuisine          | 200       | UTF-8    | 1157           |
+| 3            | https://fr.wikipedia.org/wiki/Robot_d%27indexation      | 200       | UTF-8    | 1756           |
+| 4            | https://fr.wikipedia.org/wiki/Bot_informatique          | 200       | utf-8    | 71             |
+| 5            | https://fr.wikipedia.org/wiki/Atlas_(robot)             | 429       | utf-8    | 71             |
+| 6            | https://roboty.magistry.fr                               | 200       | Inconnu  | 35             |
+| 7            | https://fr.wikipedia.org/wiki/Robot_(Leonard_de_Vinci)  | 429       | utf-8    | 440            |
+| 8            | https://fr.wiktionary.org/wiki/robot                     | 429       | utf-8    | 71             |
+| 9            | https://fr.wikipedia.org/wiki/Protocole_d%27exclusion_des_robots | 429       | utf-8    | 71             |
+| 10           | https://fr.wikipedia.org/wiki/Robotique                 | 429       | utf-8    | 71             |
+
+Je pense que les différences de résultat sont du aux codes d'erreur http, j'ai lancé plusieurs fois d'affilé le scripts bash et je n'ai pas toujours le même résultat.
+
+-> Erreur 429 : 429 Too Many Requests. Cette erreur survient lorsque le serveur est submergé par un grand nombre de requêtes en un court laps de temps, ce qui peut être dû à une utilisation intensive du site ou à des abus.

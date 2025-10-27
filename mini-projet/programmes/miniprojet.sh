@@ -27,20 +27,25 @@ do
         line="https://${line}"
     fi
 
-    code_http=$(curl -s -L -o /dev/null -w "%{http_code}" "${line}" | head -n 1 | cut -d' ' -f2)
-    [[ -z "${code_http}" || "${code_http}" == "000" ]] && code_http="Erreur"
+    option_ssl="--insecure"
 
-    encodage=$(curl -s -I "${line}" | grep -i "content-type" | grep -o -E "charset=[^; ]*" | cut -d= -f2) 
+    code_http=$(curl -s -L "${option_ssl}" --max-time 5 -o /dev/null -w "%{http_code}" "${line}")
+
+    encodage=$(curl -s -I "${option_ssl}" --max-time 5 "${line}" | grep -i "content-type" | grep -o -E "charset=[^; ]*" | cut -d= -f2) 
     [[ -z "${encodage}" ]] && encodage="Inconnu"
-    nombre_mot=$(curl -s -L "${line}" | lynx -stdin -dump -nolist "${line}" | wc -w)
+    encodage=$(echo "${encodage}" | tr '[:lower:]' '[:upper:]')
+
+    # Récupérer le nombre de mots proprement
+    contenu=$(curl -s -L "${option_ssl}" --max-time 20 "${line}")
+    if [[ -z "${contenu}" ]]; then
+        nombre_mot="Erreur"
+    else
+        nombre_mot=$(echo "${contenu}" | lynx -dump -nolist "${line}" | wc -w)
+        nombre_mot=$(echo "${nombre_mot}" | tr -d '\n' | tr -d '\r')
+    fi
 
     echo -e "${Nombre_ligne}\t${line}\t${code_http}\t${encodage}\t${nombre_mot}" >> "$fichier_sortie"
     ((Nombre_ligne++))
 done < "$fichier_entree"
 
 echo "Le contenu a été écrit dans $fichier_sortie"
-
-#1. le code HTTP de réponse à la requête
-##1.1 les erreurs peuvent être corrigées
-#2. l’encodage de la page, s’il est présent
-#3. le nombre de mots dans la page
