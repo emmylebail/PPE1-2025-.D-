@@ -22,14 +22,48 @@ Travail à faire : Créer un Tag "gitinto" avec le message "version finie intro 
 > * git tag -d gitinto
 > * git push origine gitinto [Mon tag était associer à mon document]
 
+## SEMAINE 3 - 8 Octobre
 
-## SEMAINE X - 22 Octobre
+Travail à faire : Lire et expliquer ce code
+
+```python
+# !/ usr / bin / bash
+if [ $ # - ne 1 ]
+then
+    echo " ce programme demande un argument "
+    exit
+fi
+FICHIER_URLS=$1
+OK=0
+NOK=0
+while read -r LINE ;
+do
+    echo " la ligne : $LINE "
+    if [[ $LINE=∼^https?:// ]]
+    then
+        echo " ressemble à une URL valide "
+        OK=$( expr $OK + 1 )
+    else
+        echo " ne ressemble pas à une URL valide "
+        NOK = $ ( expr $NOK + 1)
+    fi
+done < $FICHIER_URLS
+echo " $OK URLs et $NOK lignes douteuses "
+```
+
+> Ce code demande un argument qui est un fichier d'urls. Il va analyser ligne par ligne le document pour vérifier si les urls sont valide ou pas pour retourner le nombre de ligne douteuse.
+
+## SEMAINE 4 - 15 Octobre
+
+Travail à faire : 
+
+## SEMAINE 5 - 22 Octobre
 
 Je viens de remarquer que tout ce que j'avais écrit dans mon journal s'est supprimé, je vais voir si c'est possible de récupérer l'ancienne version de ce journal.
 En fait je crois que c'est de ma faute, j'ai oublié de sauvergarder le document avant de quitter la page, quelle erreur de débutant...
 Du coup on refera les exercices de la dernière fois un autre jour.
 
-> Travail à faire : 
+Travail à faire : 
 > * Exercice 1 : lire les lignes d’un fichier en bash
 Dans le dépôt vous trouverez le dossier "mini-projet" avec le code suivant :
 while read -r line;
@@ -207,3 +241,15 @@ Résultat 5 :
 | 10 | https://fr.wikipedia.org/wiki/Robotique | 429 | UTF-8 | 13009 |
 
 Pour régler un problème, j'ai enlevé l'option `-stdin` j'ai également ajouté le temps de réponse `--max-time` qui permet de ne pas trop surchauffé le site.
+
+## SEMAINE 6 - 3 Novembre
+
+Travail à faire : transformer la sortie tabulaire en HTML
+En partant du miniprojet de la semaine dernière, nous voulons à présent transformer
+la sortie tabulaire en sortie au format HTML. La page produite devra contenir :
+1. un entête
+2. un corps
+• devra contenir au moins le tableau des données récupérées, avec une ligne
+d’entête et les résultats pour chaque URL.
+Ce code HTML devra être écrit dans un fichier .html qui devra être lisible par un
+navigateur web quelconque.
