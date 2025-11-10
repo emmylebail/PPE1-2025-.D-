@@ -19,8 +19,20 @@ fi
 # Créer le fichier de sortie s'il n'existe pas (ou le vider)
 > "$fichier_sortie"
 
-# Écrire l'en-tête dans le fichier de sortie
-echo -e "Numéro de ligne\tLien\tCode HTTP\tEncodage\tNombre de mots" >> "$fichier_sortie"
+# Création du document html
+{
+echo "<!DOCTYPE html>"
+echo "<html>"
+echo "<head>"
+echo "<titre> Mini-projet </titre>"
+echo "<meta charset=\"utf8\">"
+echo "</head>"
+echo "<body>"
+
+
+echo "<table>"
+echo "<tr>" "<th>Numéro de ligne</th>" "<th>Lien</th>" "<th>Code HTTP</th>" "<th>Encodage</th>" "<th>Nombre de mots</th>" "</tr>"
+} > "$fichier_sortie"
 
 # Lire le fichier ligne par ligne
 while read -r line; do
@@ -31,12 +43,25 @@ while read -r line; do
     encodage=$(curl -sI "$line" | grep -i "charset" | head -n 1 | awk -F'=' '{print $2}' | tr -d '\r')
 
     # Nombre de mots (avec lynx si installé)
-    nombre_mot=$(lynx -dump -nolist "$line" 2>/dev/null | wc -l)
+    nombre_mot=$(lynx -dump -nolist "$line" 2>/dev/null | wc -w )
 
-    # Écrire dans le fichier TSV
-    echo -e "${Nombre_ligne}\t${line}\t${code_http}\t${encodage}\t${nombre_mot}" >> "$fichier_sortie"
+    # Écrire dans le fichier html
+    {
+    echo "<tr>"
+    echo "<td>" ${Nombre_ligne} "</td>"
+    echo "<td>" ${line} "</td>"
+    echo "<td>" ${code_http} "</td>"
+    echo "<td>" ${encodage} "</td>"
+    echo "<td>" ${nombre_mot} "</td>" 
+    echo "</tr>" 
+    } >> "$fichier_sortie"
+     
 
     ((Nombre_ligne++))
 done < "$fichier_entree"
 
-echo "✅ Le contenu a été écrit dans $fichier_sortie"
+{
+echo "</table>"
+echo "</body>"
+echo "</html>"
+    } >> "$fichier_sortie"
