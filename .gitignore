@@ -18,6 +18,7 @@ fseventsd/
 .com.apple.timemachine.supported
 .AppleDouble/
 .LSOverride/
+.gitkeep
 
 # iCloud et autres caches
 *.icloud

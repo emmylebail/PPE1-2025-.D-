@@ -15,11 +15,7 @@ if [[ ! -f "$fichier_entree" ]]; then
     exit 1
 fi
 
-# Créer le dossier si nécessaire
-mkdir -p tableaux
-
 # Création du document html
-{
 echo "<!DOCTYPE html>"
 echo "<html>"
 echo "<head>"
@@ -36,7 +32,6 @@ echo "<h2 class=\"title\">Résultat du script</h2>"
 
 echo "<table class=\"table\">"
 echo "<tr><th>Numéro de ligne</th><th>Lien</th><th>Code HTTP</th><th>Encodage</th><th>Nombre de mots</th></tr>"
-} > "./tableaux/tableau-fr.html"
 
 # Lire le fichier ligne par ligne
 while read -r line; do
@@ -50,7 +45,7 @@ while read -r line; do
     nombre_mot=$(lynx -dump -nolist "$line" 2>/dev/null | wc -w)
 
     # Ajouter au tableau
-    {
+    
     echo "<tr>"
     echo "<td>${Nombre_ligne}</td>"
     echo "<td>${line}</td>"
@@ -58,16 +53,14 @@ while read -r line; do
     echo "<td>${encodage}</td>"
     echo "<td>${nombre_mot}</td>"
     echo "</tr>"
-    } >> "./tableaux/tableau-fr.html"
 
     ((Nombre_ligne++))
 done < "$fichier_entree"
 
-{
 echo "</table>"
 echo "</div>"
 echo "</div>"
 echo "</section>"
 echo "</body>"
 echo "</html>"
-} >> "./tableaux/tableau-fr.html"
+

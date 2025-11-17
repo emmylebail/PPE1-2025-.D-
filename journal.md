@@ -253,3 +253,9 @@ la sortie tabulaire en sortie au format HTML. La page produite devra contenir :
 d’entête et les résultats pour chaque URL.
 Ce code HTML devra être écrit dans un fichier .html qui devra être lisible par un
 navigateur web quelconque.
+
+## SEMAIN 7 - 10 Novembre
+
+Travail à faire : Transformer la page `index.html`en page internet git et modifier le contenu, en ajoutant le Css (Bulma)
+
+En commençant ce travail, je m'attendais à ce que le css Bulma et le css soit assez similaire, c'est assez simple à prendre en main, avec l'anglais. C'est pas mal en fait.
